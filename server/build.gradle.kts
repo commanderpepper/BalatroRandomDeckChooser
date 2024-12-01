@@ -25,6 +25,6 @@ dependencies {
     implementation(libs.ktor.server.contentnegotiation)
     implementation(libs.ktor.server.serialization)
 
-    testImplementation(libs.ktor.server.tests)
-    testImplementation(libs.kotlin.test.junit)
+//    testImplementation(libs.ktor.server.tests)
+//    testImplementation(libs.kotlin.test.junit)
 }
