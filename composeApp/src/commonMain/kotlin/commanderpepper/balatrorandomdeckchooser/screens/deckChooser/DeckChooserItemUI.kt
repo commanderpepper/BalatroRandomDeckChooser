@@ -1,27 +1,24 @@
 package commanderpepper.balatrorandomdeckchooser.screens.deckChooser
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import balatrorandomdeckchooser.composeapp.generated.resources.*
-import balatrorandomdeckchooser.composeapp.generated.resources.Blue_Deck
-import balatrorandomdeckchooser.composeapp.generated.resources.Red_Deck
-import balatrorandomdeckchooser.composeapp.generated.resources.Res
-import balatrorandomdeckchooser.composeapp.generated.resources.Yellow_Deck
 import commanderpepper.balatrorandomdeckchooser.models.Deck
 import commanderpepper.balatrorandomdeckchooser.models.ui.DeckChooserItem
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.skia.Color
 
 @Composable
 fun DeckChooserItemUI(deckChooserItem: DeckChooserItem) {
@@ -70,6 +67,7 @@ fun DeckChooserItem.getImage(): DrawableResource {
         Deck.GHOST -> Res.drawable.Ghost_Deck
         Deck.ABANDONED -> Res.drawable.Abandoned_Deck
         Deck.CHECKERED -> Res.drawable.Checkered_Deck
+        Deck.PAINTED -> Res.drawable.Painted_Deck
         Deck.ZODIAC -> Res.drawable.Zodiac_Deck
         Deck.ANAGLYPH -> Res.drawable.Anaglyph_Deck
         Deck.PLASMA -> Res.drawable.Plasma_Deck

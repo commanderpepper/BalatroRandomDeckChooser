@@ -8,7 +8,8 @@ import io.ktor.http.*
 
 class DeckDataSourceImpl(private val client: HttpClient) : DeckDataSource {
     override suspend fun getDecks(): List<DeckNetwork> {
-        return client.get("/decks").body<List<DeckNetwork>>()
+        val body = client.get("/decks").body<List<DeckNetwork>>()
+        return body
     }
 
     override suspend fun updateDeck(deck: DeckNetwork) {
