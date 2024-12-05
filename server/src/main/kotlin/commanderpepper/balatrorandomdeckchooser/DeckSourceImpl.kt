@@ -1,17 +1,30 @@
 package commanderpepper.balatrorandomdeckchooser
 
 import commanderpepper.balatrorandomdeckchooser.models.network.DeckNetwork
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import java.io.File
 import java.nio.charset.Charset
+import kotlin.time.Duration.Companion.minutes
 
-class DeckSourceImpl() : DeckSource {
+class DeckSourceImpl(private val applicationScope : CoroutineScope) : DeckSource {
 
     private val file = File("server/src/main/resources/deckrecord.json")
     private val fileString = file.readText(Charset.defaultCharset())
     private val map = Json.decodeFromString<Map<String, Int>>(fileString).toMutableMap()
+
+    init {
+        applicationScope.launch {
+            while (true){
+                delay(5.minutes)
+                saveDeck()
+            }
+        }
+    }
 
     override suspend fun getAllDecks(): List<DeckNetwork> {
         return map.map { DeckNetwork(it.key, it.value) }

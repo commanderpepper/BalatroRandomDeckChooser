@@ -16,9 +16,13 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.serialization.json.Json
 
-private val deckSource: DeckSource = DeckSourceImpl()
+private val job = Job()
+private val scope = CoroutineScope(job)
+val deckSource: DeckSource = DeckSourceImpl(scope)
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
