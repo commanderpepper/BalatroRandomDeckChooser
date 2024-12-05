@@ -51,7 +51,7 @@ fun DeckChooserScreen(
             Button(onClick = { randomDeck() }) { Text("RANDOM DECK") }
             Button(onClick = { leastPlayedRandomDeck() }) { Text("LEAST PLAYED RANDOM DECK") }
         }
-        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 136.dp), contentPadding = PaddingValues(8.dp)) {
+        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 102.dp), contentPadding = PaddingValues(8.dp)) {
             items(decks) { deck ->
                 DeckChooserItemUI(deck)
             }

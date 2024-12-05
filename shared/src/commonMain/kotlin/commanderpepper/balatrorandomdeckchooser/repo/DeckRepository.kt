@@ -1,9 +1,13 @@
 package commanderpepper.balatrorandomdeckchooser.repo
 
 import commanderpepper.balatrorandomdeckchooser.models.repo.DeckRepo
+import kotlinx.coroutines.flow.Flow
 
 interface DeckRepository {
-    suspend fun getDecks(): List<DeckRepo>
 
-    suspend fun updateDeck(deck: DeckRepo)
+    fun getDecks(): Flow<List<DeckRepo>>
+
+    suspend fun chooseRandomDeck()
+
+    suspend fun chooseLeastRandomDeck()
 }
