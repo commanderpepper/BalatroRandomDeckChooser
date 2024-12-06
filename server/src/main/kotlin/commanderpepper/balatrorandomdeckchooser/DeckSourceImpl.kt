@@ -9,11 +9,13 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import java.io.File
 import java.nio.charset.Charset
+import java.nio.file.Paths
 import kotlin.time.Duration.Companion.minutes
 
 class DeckSourceImpl(private val applicationScope : CoroutineScope) : DeckSource {
 
-    private val file = File("server/src/main/resources/deckrecord.json")
+    private val path = Paths.get("").toAbsolutePath().toString()
+    private val file = File("$path/src/main/resources/deckrecord.json")
     private val fileString = file.readText(Charset.defaultCharset())
     private val map = Json.decodeFromString<Map<String, Int>>(fileString).toMutableMap()
 
