@@ -1,5 +1,7 @@
 package commanderpepper.balatrorandomdeckchooser.screens.deckChooser
 
+import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,9 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import balatrorandomdeckchooser.composeapp.generated.resources.*
 import commanderpepper.balatrorandomdeckchooser.models.Deck
@@ -22,10 +25,20 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DeckChooserItemUI(deckChooserItem: DeckChooserItem) {
+    val initialCount = remember { deckChooserItem.count }
+    val borderColor = remember { Animatable(Color.Black) }
+
+    LaunchedEffect(deckChooserItem.count){
+        if(deckChooserItem.count > initialCount){
+            borderColor.animateTo(Color.Yellow, animationSpec = tween(1000))
+            borderColor.animateTo(Color.Black, animationSpec = tween(1000))
+        }
+    }
+
     Column(
         modifier = Modifier.padding(8.dp).border(
             width = 2.dp,
-            color = androidx.compose.ui.graphics.Color.Black,
+            color = borderColor.value,
             shape = RoundedCornerShape(12.dp)
         ), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
