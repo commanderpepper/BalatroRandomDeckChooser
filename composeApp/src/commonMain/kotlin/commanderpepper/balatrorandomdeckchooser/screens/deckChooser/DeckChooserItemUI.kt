@@ -74,7 +74,7 @@ fun DeckChooserItem.getImage(): DrawableResource {
         Deck.BLUE -> Res.drawable.Blue_Deck
         Deck.YELLOW -> Res.drawable.Yellow_Deck
         Deck.GREEN -> Res.drawable.Green_Deck
-        Deck.BLACK -> Res.drawable.Blue_Deck
+        Deck.BLACK -> Res.drawable.Black_Deck
         Deck.MAGIC -> Res.drawable.Magic_Deck
         Deck.NEBULA -> Res.drawable.Nebula_Deck
         Deck.GHOST -> Res.drawable.Ghost_Deck
