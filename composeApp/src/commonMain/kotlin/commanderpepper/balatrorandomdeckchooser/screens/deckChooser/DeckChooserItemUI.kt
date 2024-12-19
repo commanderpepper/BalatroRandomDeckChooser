@@ -30,8 +30,10 @@ fun DeckChooserItemUI(deckChooserItem: DeckChooserItem) {
 
     LaunchedEffect(deckChooserItem.count){
         if(deckChooserItem.count > initialCount){
-            borderColor.animateTo(Color.Yellow, animationSpec = tween(1000))
-            borderColor.animateTo(Color.Black, animationSpec = tween(1000))
+            repeat(5){
+                borderColor.animateTo(Color.Yellow, animationSpec = tween(750))
+                borderColor.animateTo(Color.Black, animationSpec = tween(750))
+            }
         }
     }
 
