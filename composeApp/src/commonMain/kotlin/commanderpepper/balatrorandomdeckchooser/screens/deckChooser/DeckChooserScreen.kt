@@ -42,18 +42,21 @@ fun DeckChooserScreen(
     leastPlayedRandomDeck: () -> Unit,
     decks: List<DeckChooserItem>
 ) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(onClick = { randomDeck() }) { Text("RANDOM DECK") }
-            Button(onClick = { leastPlayedRandomDeck() }) { Text("LEAST PLAYED RANDOM DECK") }
-        }
-        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 102.dp), contentPadding = PaddingValues(8.dp)) {
-            items(decks) { deck ->
-                DeckChooserItemUI(deck)
+    Box(modifier = Modifier.fillMaxSize()) {
+        DeckChooserSwirlingBackground()
+        Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(onClick = { randomDeck() }) { Text("RANDOM DECK") }
+                Button(onClick = { leastPlayedRandomDeck() }) { Text("LEAST PLAYED RANDOM DECK") }
+            }
+            LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 102.dp), contentPadding = PaddingValues(8.dp)) {
+                items(decks) { deck ->
+                    DeckChooserItemUI(deck)
+                }
             }
         }
     }
