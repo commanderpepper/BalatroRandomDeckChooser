@@ -1,6 +1,7 @@
 package commanderpepper.balatrorandomdeckchooser.screens.deckChooser
 
 import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -11,14 +12,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import balatrorandomdeckchooser.composeapp.generated.resources.*
 import commanderpepper.balatrorandomdeckchooser.models.Deck
 import commanderpepper.balatrorandomdeckchooser.models.ui.DeckChooserItem
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -27,18 +33,38 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun DeckChooserItemUI(deckChooserItem: DeckChooserItem) {
     val initialCount = remember { deckChooserItem.count }
     val borderColor = remember { Animatable(Color.Black) }
+    var cardRotation = remember { mutableStateOf(0f) }
 
     LaunchedEffect(deckChooserItem.count){
         if(deckChooserItem.count > initialCount){
-            repeat(5){
-                borderColor.animateTo(Color.Yellow, animationSpec = tween(750))
-                borderColor.animateTo(Color.Black, animationSpec = tween(750))
+            val animationDuration = 375
+            launch {
+                repeat(5){
+                    borderColor.animateTo(Color.Yellow, animationSpec = tween(animationDuration * 2))
+                    borderColor.animateTo(Color.Black, animationSpec = tween(animationDuration * 2))
+                }
+            }
+            launch {
+                animate(0f, 22.5f, animationSpec = tween(animationDuration)){ value, velocity ->
+                    cardRotation.value = value
+                }
+                repeat(7){
+                    animate(22.5f, -22.5f, animationSpec = tween(animationDuration)){ value, velocity ->
+                        cardRotation.value = value
+                    }
+                    animate(-22.5f, 22.5f, animationSpec = tween(animationDuration)){ value, velocity ->
+                        cardRotation.value = value
+                    }
+                }
+                animate(22.5f, 0f, animationSpec = tween(animationDuration)){ value, velocity ->
+                    cardRotation.value = value
+                }
             }
         }
     }
 
     Column(
-        modifier = Modifier.padding(8.dp).border(
+        modifier = Modifier.rotate(cardRotation.value).padding(8.dp).border(
             width = 2.dp,
             color = borderColor.value,
             shape = RoundedCornerShape(12.dp)
